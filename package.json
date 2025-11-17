@@ -1,0 +1,17 @@
+{
+    "name": "x402-turbo-upload",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@dha-team/arbundles": "^1.0.4",
+        "x402-fetch": "^0.7.0"
+    },
+    "devDependencies": {
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3"
+    }
+}
