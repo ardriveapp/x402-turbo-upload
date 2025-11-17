@@ -11,7 +11,7 @@ node dist/index.js --url <UPLOAD_URL> --path <DATA_PATH> --wallet <EVM_PKEY_OR_P
 
 -   `DATA_PATH`: The path to the data file to be uploaded.
 -   `EVM_PKEY_OR_PATH`: The EVM private key or the path to a file containing the EVM private key used for signing.
--   `UPLOAD_URL`: (Optional) Custom upload service URL. Defaults to `https://upload.ardrive.dev/x402/data-item/signed`.
+-   `UPLOAD_URL`: (Optional) Custom upload service URL. Defaults to `https://upload.ardrive.dev`.
 -   `MAX_USDC_VALUE`: (Optional) The maximum USDC value for the upload.
 
 ## Example
