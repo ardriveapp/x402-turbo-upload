@@ -18,7 +18,7 @@ type UploadDataParams = {
     // TODO: Consider support for tags, contentType, etc.
 };
 
-/** Load upload parameters from command line arguments, environment variables, or use testing defaults */
+/** Load upload parameters from command line arguments  or use testing defaults */
 function loadArguments(): UploadDataParams {
     const defaultUploadUrl = "https://upload.ardrive.dev";
     const defaultDataPath = "fixtures/4byte.txt";
@@ -27,20 +27,20 @@ function loadArguments(): UploadDataParams {
 
     const uploadUrl = process.argv.includes("--url")
         ? process.argv[process.argv.indexOf("--url") + 1]
-        : process.env.UPLOAD_URL || defaultUploadUrl;
+        : defaultUploadUrl;
 
     const dataPath = process.argv.includes("--path")
         ? process.argv[process.argv.indexOf("--path") + 1]
-        : process.env.DATA_PATH || defaultDataPath;
+        : defaultDataPath;
 
     const evmWalletPathOrPkey = process.argv.includes("--wallet")
         ? process.argv[process.argv.indexOf("--wallet") + 1]
-        : process.env.EVM_PRIVATE_KEY || defaultEvmPkeyPath;
+        : defaultEvmPkeyPath;
 
     const maxUSDCValue = BigInt(
         process.argv.includes("--max-usdc")
             ? process.argv[process.argv.indexOf("--max-usdc") + 1]
-            : process.env.MAX_USDC_VALUE || 1 // Default 1 USDC
+            : 1 // Default 1 USDC
     );
 
     let evmPrivateKey: string;

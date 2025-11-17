@@ -1,6 +1,6 @@
 # x402-turbo-upload
 
-A simple TypeScript command line tool to upload data items to the x402 Turbo Upload Service.
+A simple TypeScript script and command line tool to upload data items to the x402 Turbo Upload Service.
 
 ## Usage
 
@@ -19,15 +19,6 @@ node dist/index.js --url <UPLOAD_URL> --path <DATA_PATH> --wallet <EVM_PKEY_OR_P
 ```sh
 node dist/index.js --path ./data/file.txt --wallet "0xYOUR_PRIVATE_KEY"
 ```
-
-## Env vars
-
-You can alternatively set the following environment variables instead of using command line arguments:
-
--   `UPLOAD_URL`: Custom upload service URL.
--   `DATA_PATH`: The path to the data file to be uploaded.
--   `EVM_PRIVATE_KEY`: The EVM private key used for signing.
--   `MAX_USDC_VALUE`: The maximum USDC value for the upload.
 
 ## Notes
 
