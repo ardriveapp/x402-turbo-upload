@@ -15,12 +15,13 @@ type UploadDataParams = {
     dataPath: string;
     evmPrivateKey: `0x${string}`;
     maxMUSDCValue: bigint;
-    // TODO: Consider support for tags, contentType, etc.
+    contentType?: string;
+    // TODO: Consider CLI tags parameter for custom tags
 };
 
 /** Load upload parameters from command line arguments  or use testing defaults */
 function loadArguments(): UploadDataParams {
-    const defaultUploadUrl = "https://upload.ardrive.dev";
+    const defaultUploadUrl = "https://upload.ardrive.io";
     const defaultDataPath = "fixtures/4byte.txt";
     const defaultEvmPkeyPath =
         "fixtures/0x20c1DF6f3310600c8396111EB5182af9213828Dc.eth.pk.txt";
@@ -42,6 +43,10 @@ function loadArguments(): UploadDataParams {
             ? process.argv[process.argv.indexOf("--max-usdc") + 1]
             : 1 // Default 1 USDC
     );
+
+    const contentType = process.argv.includes("--content-type")
+        ? process.argv[process.argv.indexOf("--content-type") + 1]
+        : undefined;
 
     let evmPrivateKey: string;
     if (evmWalletPathOrPkey.startsWith("0x")) {
@@ -66,11 +71,12 @@ function loadArguments(): UploadDataParams {
         dataPath,
         evmPrivateKey,
         maxMUSDCValue: maxUSDCValue * BigInt(1_000_000), // Convert to base units (6 decimals)
+        contentType,
     };
 }
 
 async function uploadData() {
-    const { evmPrivateKey, dataPath, uploadUrl, maxMUSDCValue } =
+    const { evmPrivateKey, dataPath, uploadUrl, maxMUSDCValue, contentType } =
         loadArguments();
 
     const client = createWalletClient({
@@ -81,7 +87,15 @@ async function uploadData() {
 
     // Create ANS-104 data item from file data
     const signer = new EthereumSigner(evmPrivateKey);
-    const dataItem = createData(readFileSync(dataPath), signer);
+    const dataItem = createData(readFileSync(dataPath), signer, {
+        tags: [
+            {
+                name: "Content-Type",
+                value: contentType || "application/octet-stream",
+            },
+            { name: "App-Name", value: "x402-turbo-upload" },
+        ],
+    });
     await dataItem.sign(signer);
 
     // Make a request that may require payment
